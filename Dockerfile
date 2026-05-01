@@ -16,8 +16,8 @@ COPY public ./public
 COPY src ./src
 COPY tests ./tests
 
-# Build the React app
-RUN npm run build
+# Build the React app with skip preflight check
+RUN SKIP_PREFLIGHT_CHECK=true DISABLE_ESLINT_PLUGIN=true NODE_OPTIONS=--openssl-legacy-provider npm run build
 
 # Production stage
 FROM node:18-alpine

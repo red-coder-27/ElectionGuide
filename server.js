@@ -4,7 +4,7 @@ const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
@@ -30,58 +30,16 @@ app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok' });
 });
 
-// Generate valid WAV audio file
-function generateWavAudio(durationMs = 1000) {
-  const sampleRate = 16000;
-  const channels = 1;
-  const bitsPerSample = 16;
-  const bytesPerSample = bitsPerSample / 8;
-  const numSamples = Math.floor((durationMs / 1000) * sampleRate);
-  
-  // WAV file header
-  const header = Buffer.alloc(44);
-  header.write('RIFF', 0);
-  header.writeUInt32LE(36 + numSamples * channels * bytesPerSample, 4); // file size - 8
-  header.write('WAVE', 8);
-  
-  // Format chunk
-  header.write('fmt ', 12);
-  header.writeUInt32LE(16, 16); // Subchunk1Size
-  header.writeUInt16LE(1, 20);  // AudioFormat (1 = PCM)
-  header.writeUInt16LE(channels, 22);
-  header.writeUInt32LE(sampleRate, 24);
-  header.writeUInt32LE(sampleRate * channels * bytesPerSample, 28); // ByteRate
-  header.writeUInt16LE(channels * bytesPerSample, 32); // BlockAlign
-  header.writeUInt16LE(bitsPerSample, 34);
-  
-  // Data chunk
-  header.write('data', 36);
-  header.writeUInt32LE(numSamples * channels * bytesPerSample, 40);
-  
-  // Generate simple tone (440 Hz beep)
-  const audioData = Buffer.alloc(numSamples * channels * bytesPerSample);
-  const freq = 440; // A4 note
-  for (let i = 0; i < numSamples; i++) {
-    const sample = Math.sin((2 * Math.PI * freq * i) / sampleRate) * 32767 * 0.3;
-    audioData.writeInt16LE(Math.round(sample), i * bytesPerSample);
-  }
-  
-  return Buffer.concat([header, audioData]);
-}
-
 // Mock TTS endpoint
 app.post('/api/tts/synthesize', (req, res) => {
   const { text, languageCode } = req.body;
   if (!text || !languageCode) {
     return res.status(400).json({ error: 'Text and languageCode are required' });
   }
-  
-  // Generate actual WAV audio (duration based on text length - ~150 chars per second)
-  const durationMs = Math.max(500, (text.length / 150) * 1000);
-  const wavBuffer = generateWavAudio(durationMs);
-  const audioBase64 = wavBuffer.toString('base64');
-  
-  res.json({ audioContent: audioBase64 });
+  // In a real app, you'd call the Google TTS API here.
+  // For this mock, we'll return a fake base64 audio string.
+  const mockAudio = Buffer.from(`Mock audio for: ${text}`).toString('base64');
+  res.json({ audioContent: mockAudio });
 });
 
 // Mock Translate endpoint
