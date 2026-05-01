@@ -1,0 +1,67 @@
+steps:
+  # Step 1: Build Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/election-guide-ai:$SHORT_SHA'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/election-guide-ai:latest'
+      - '.'
+
+  # Step 2: Push image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'gcr.io/$PROJECT_ID/election-guide-ai:$SHORT_SHA'
+
+  # Step 3: Deploy to Cloud Run
+  - name: 'gcr.io/cloud-builders/run'
+    args:
+      - 'deploy'
+      - 'election-guide-ai'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/election-guide-ai:$SHORT_SHA'
+      - '--region'
+      - 'us-central1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--memory'
+      - '1Gi'
+      - '--cpu'
+      - '2'
+      - '--timeout'
+      - '3600'
+      - '--set-env-vars'
+      - |
+        NODE_ENV=production,
+        REACT_APP_FIREBASE_API_KEY=${_FIREBASE_API_KEY},
+        REACT_APP_FIREBASE_AUTH_DOMAIN=${_FIREBASE_AUTH_DOMAIN},
+        REACT_APP_FIREBASE_PROJECT_ID=${_FIREBASE_PROJECT_ID},
+        REACT_APP_FIREBASE_STORAGE_BUCKET=${_FIREBASE_STORAGE_BUCKET},
+        REACT_APP_FIREBASE_MESSAGING_SENDER_ID=${_FIREBASE_MESSAGING_SENDER_ID},
+        REACT_APP_FIREBASE_APP_ID=${_FIREBASE_APP_ID},
+        REACT_APP_GA4_MEASUREMENT_ID=${_GA4_MEASUREMENT_ID}
+
+# Build configuration
+images:
+  - 'gcr.io/$PROJECT_ID/election-guide-ai:$SHORT_SHA'
+  - 'gcr.io/$PROJECT_ID/election-guide-ai:latest'
+
+# Timeout for build
+timeout: '3600s'
+
+# Options
+options:
+  machineType: 'N1_HIGHCPU_8'
+
+# Substitutions for environment variables
+substitutions:
+  _FIREBASE_API_KEY: 'your_firebase_api_key'
+  _FIREBASE_AUTH_DOMAIN: 'your_firebase_auth_domain'
+  _FIREBASE_PROJECT_ID: 'your_firebase_project_id'
+  _FIREBASE_STORAGE_BUCKET: 'your_firebase_storage_bucket'
+  _FIREBASE_MESSAGING_SENDER_ID: 'your_messaging_sender_id'
+  _FIREBASE_APP_ID: 'your_firebase_app_id'
+  _GA4_MEASUREMENT_ID: 'your_ga4_measurement_id'

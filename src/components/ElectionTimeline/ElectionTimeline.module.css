@@ -1,0 +1,470 @@
+.timeline {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.09);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.75rem;
+  color: #1a73e8;
+  font-weight: 700;
+}
+
+.subtitle {
+  margin: 0;
+  color: #5f6368;
+  font-size: 1rem;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #5f6368;
+  font-size: 1cm;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Timeline Track */
+.trackContainer {
+  position: relative;
+  padding: 2rem 0 1rem 0;
+}
+
+.track {
+  display: flex;
+  height: 6px;
+  background: #e0e0e0;
+  border-radius: 3px;
+  overflow: hidden;
+  gap: 0;
+}
+
+.trackSegment {
+  flex: 1;
+  border-radius: 0;
+  transition: all 0.3s ease;
+}
+
+.trackSegment.upcoming {
+  background: #e8f0fe;
+}
+
+.trackSegment.current {
+  background: linear-gradient(90deg, #1a73e8, #1765cc);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.trackSegment.completed {
+  background: #34a853;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Phase Buttons */
+.phasesContainer {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding: 0;
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+.phaseButton {
+  flex: 1;
+  min-width: 100px;
+  padding: 1rem 0.75rem;
+  border: 2px solid #dadce0;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+  font-family: inherit;
+}
+
+.phaseButton:hover {
+  border-color: #1a73e8;
+  background: #f8faff;
+}
+
+.phaseButton:focus-visible {
+  outline: 2px solid #1a73e8;
+  outline-offset: 2px;
+}
+
+.phaseButton.selected {
+  background: #1a73e8;
+  color: white;
+  border-color: #1a73e8;
+}
+
+.phaseButton.selected .phaseDate {
+  opacity: 0.9;
+}
+
+.phaseButton.completed {
+  opacity: 0.7;
+}
+
+.phaseButton.completed:hover {
+  opacity: 0.85;
+}
+
+.icon {
+  font-size: 1.5rem;
+}
+
+.phaseName {
+  font-weight: 600;
+  font-size: 0.95rem;
+  white-space: normal;
+}
+
+.phaseDate {
+  font-size: 0.75rem;
+  color: #5f6368;
+  opacity: 0.8;
+}
+
+.phaseButton.selected .phaseDate {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Details Panel */
+.details {
+  background: #f8faff;
+  border: 2px solid #1a73e8;
+  border-radius: 8px;
+  padding: 1.5rem;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.detailsContent {
+  max-width: 100%;
+}
+
+.detailsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.detailsTitle {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #1a73e8;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.detailsIcon {
+  font-size: 2rem;
+}
+
+.statusBadge {
+  background: #e8f0fe;
+  color: #1a73e8;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.statusBadge.completed {
+  background: #e6f4e6;
+  color: #137333;
+}
+
+.statusBadge.current {
+  background: #fdf8f0;
+  color: #eb8500;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.dateInfo {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: #202124;
+}
+
+.dateInfo strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: #1a73e8;
+}
+
+.countdown {
+  background: white;
+  border-left: 4px solid #f9ab00;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.countdown strong {
+  display: block;
+  color: #f9ab00;
+  margin-bottom: 0.5rem;
+}
+
+.countdown span {
+  font-weight: 700;
+  color: #202124;
+  font-size: 1.25rem;
+}
+
+.description {
+  margin: 1rem 0;
+  line-height: 1.6;
+  color: #202124;
+  font-size: 1rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.actionLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: white;
+  color: #1a73e8;
+  border: 2px solid #1a73e8;
+  padding: 0.6rem 1.25rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 40px;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+.actionLink:hover,
+.actionLink:focus {
+  background: #1a73e8;
+  color: white;
+}
+
+.actionLink:focus-visible {
+  outline: 2px solid #1a73e8;
+  outline-offset: 2px;
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  gap: 2rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  flex-wrap: wrap;
+  font-size: 0.95rem;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #5f6368;
+}
+
+.legendDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legendDot.completed {
+  background: #34a853;
+}
+
+.legendDot.current {
+  background: #1a73e8;
+}
+
+.legendDot.upcoming {
+  background: #e8f0fe;
+  border: 2px solid #1a73e8;
+}
+
+/* High contrast mode */
+[data-contrast='high'] .timeline {
+  border: 3px solid #000;
+}
+
+[data-contrast='high'] .track {
+  background: #000;
+}
+
+[data-contrast='high'] .trackSegment {
+  border: 1px solid white;
+  background: #000 !important;
+}
+
+[data-contrast='high'] .phaseButton,
+[data-contrast='high'] .details {
+  border: 3px solid #000;
+  background: #fff;
+  color: #000;
+}
+
+[data-contrast='high'] .phaseButton.selected {
+  background: #000;
+  color: #fff;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .details {
+    animation: none;
+  }
+
+  .phaseButton,
+  .actionLink {
+    transition: none;
+  }
+
+  .trackSegment.current {
+    animation: none;
+  }
+
+  .statusBadge.current {
+    animation: none;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .timeline {
+    padding: 1.5rem 1rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .phasesContainer {
+    gap: 0.5rem;
+  }
+
+  .phaseButton {
+    min-width: 80px;
+    padding: 0.75rem 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .icon {
+    font-size: 1.25rem;
+  }
+
+  .detailsHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .detailsTitle {
+    font-size: 1.25rem;
+  }
+
+  .legend {
+    gap: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .actionLink {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+  .timeline {
+    padding: 1rem 0.75rem;
+    margin: 1rem 0;
+  }
+
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+  }
+
+  .phasesContainer {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .phaseButton {
+    width: 100%;
+    padding: 0.75rem;
+  }
+
+  .details {
+    padding: 1rem;
+  }
+
+  .legend {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}

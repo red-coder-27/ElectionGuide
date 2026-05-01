@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#1a73e8" />
+    <meta
+      name="description"
+      content="ElectionGuide AI - An intelligent assistant helping you understand the election process, timelines, and voting steps."
+    />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="ElectionGuide AI" />
+    <meta
+      property="og:description"
+      content="Understand the election process with an intelligent AI assistant"
+    />
+    <meta property="og:type" content="website" />
+
+    <title>ElectionGuide AI - Election Process Assistant</title>
+
+    <style>
+      /* Skip Navigation Link */
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: #1a73e8;
+        color: white;
+        padding: 8px;
+        text-decoration: none;
+        z-index: 100;
+      }
+      .skip-link:focus {
+        top: 0;
+      }
+
+      /* Base accessibility styles */
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        font-size: 16px;
+      }
+
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+          'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+          'Helvetica Neue', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: #fafbfc;
+        color: #202124;
+      }
+
+      /* Focus styles for keyboard navigation */
+      button:focus,
+      a:focus,
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: 2px solid #1a73e8;
+        outline-offset: 2px;
+      }
+
+      /* High contrast mode */
+      @media (prefers-contrast: more) {
+        body {
+          background-color: #fff;
+          color: #000;
+        }
+      }
+
+      /* Reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root" role="main"></div>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Allow users to manage their own data
+    function isAuth() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+    
+    // Users collection - authenticated read/write for own document
+    match /users/{userId} {
+      allow read: if isAuth() && isOwner(userId);
+      allow create: if isAuth() && isOwner(userId);
+      allow update: if isAuth() && isOwner(userId);
+      allow delete: if isAuth() && isOwner(userId);
+    }
+    
+    // Chat history collection - users can only access their own chats
+    match /chatHistory/{userId}/messages/{messageId} {
+      allow read: if isAuth() && isOwner(userId);
+      allow create: if isAuth() && isOwner(userId);
+      allow update: if isAuth() && isOwner(userId);
+      allow delete: if isAuth() && isOwner(userId);
+    }
+    
+    // Accessibility settings - users can only access their own settings
+    match /accessibilitySettings/{userId} {
+      allow read: if isAuth() && isOwner(userId);
+      allow create: if isAuth() && isOwner(userId);
+      allow update: if isAuth() && isOwner(userId);
+      allow delete: if isAuth() && isOwner(userId);
+    }
+    
+    // User reminders - users can only access their own reminders
+    match /reminders/{userId}/items/{reminderId} {
+      allow read: if isAuth() && isOwner(userId);
+      allow create: if isAuth() && isOwner(userId);
+      allow update: if isAuth() && isOwner(userId);
+      allow delete: if isAuth() && isOwner(userId);
+    }
+    
+    // Public election data (read-only for all authenticated users)
+    match /publicElectionData/{document=**} {
+      allow read: if isAuth();
+      allow write: if false;
+    }
+    
+    // Default deny all other access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

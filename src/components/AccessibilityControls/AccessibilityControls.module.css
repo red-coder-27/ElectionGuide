@@ -1,0 +1,190 @@
+.accessibilityControls {
+  background: white;
+  border: 2px solid #1a73e8;
+  border-radius: 8px;
+  padding: 0;
+  margin: 1rem 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.summary {
+  cursor: pointer;
+  padding: 1rem;
+  font-weight: 600;
+  color: #1a73e8;
+  -webkit-user-select: none;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.summary:hover,
+.summary:focus-visible {
+  background-color: #f1f3f4;
+  outline: 2px solid #1a73e8;
+  outline-offset: -2px;
+}
+
+.details[open] .summary {
+  background-color: #e8f0fe;
+  border-bottom: 2px solid #1a73e8;
+}
+
+.content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: #fafbfc;
+}
+
+.setting {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-weight: 500;
+  color: #202124;
+  font-size: 0.95rem;
+}
+
+.button {
+  background: white;
+  border: 2px solid #dadce0;
+  border-radius: 6px;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #202124;
+  font-weight: 500;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.button:hover {
+  border-color: #1a73e8;
+  background-color: #f8faff;
+}
+
+.button:focus-visible {
+  outline: 2px solid #1a73e8;
+  outline-offset: 2px;
+}
+
+.button.active {
+  background: #1a73e8;
+  color: white;
+  border-color: #1a73e8;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.buttonGroup .button {
+  flex: 1;
+  min-width: 80px;
+  font-size: 1.25rem;
+  padding: 0.5rem;
+}
+
+.helpText {
+  background: white;
+  border-left: 4px solid #1a73e8;
+  padding: 1rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  color: #5f6368;
+  margin-top: 0.5rem;
+}
+
+.helpText p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.helpText strong {
+  color: #202124;
+}
+
+/* High contrast mode */
+[data-contrast='high'] .accessibilityControls {
+  border: 3px solid #000;
+  background: #fff;
+}
+
+[data-contrast='high'] .summary {
+  border-bottom: 3px solid #000;
+}
+
+[data-contrast='high'] .button {
+  border: 2px solid #000;
+  color: #000;
+  background: #fff;
+}
+
+[data-contrast='high'] .button.active {
+  background: #000;
+  color: #fff;
+}
+
+/* Font size adjustments */
+[data-screen-reader='true'] .summary span:last-child {
+  font-weight: 700;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .summary,
+  .button {
+    transition: none;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .content {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .button {
+    font-size: 0.95rem;
+    padding: 0.65rem 1rem;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+  }
+
+  .buttonGroup .button {
+    min-width: auto;
+  }
+}
+
+/* Focus visible for keyboard navigation */
+.button:focus-visible {
+  outline: 3px solid #1a73e8;
+  outline-offset: 2px;
+}
+
+/* Ensure button text is readable in all states */
+.button {
+  text-align: center;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
